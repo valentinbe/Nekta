@@ -15,7 +15,7 @@
 <body>
 
 
-  <nav class="navbar navbar-light bg-faded navbar-fixed-top">
+  <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top">
     <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
       &#9776;
     </button>
@@ -26,13 +26,11 @@
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link" href="#">About us</a>
         </li>
-
         <li class="nav-item">
           <a class="btn btn-primary" href="#">Sign in</a>
         </li>
-
       </ul>
     </div>
   </nav>
@@ -42,17 +40,21 @@
     <div id="stage-caption">
       <h1 class="display-3">Why have cotton when you can have a hive?</h1>
       <p>Just Hive.</p>
-      <a href="" class="btn btn-lg btn-success">Sign up now</a>
+      <a href="" class="btn btn-lg btn-success">Sign up</a>
+      <input type="text" class="form-control" id="usr">
     </div>
   </div>
 
 
-  <section id="feature-one">
+  <section id="feature-one" class="feature-twitter">
     <div class="container">
       <div class="row">
         <div class="feature-content">
           <div class="col-lg-6">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/WbMV9qYIXqM" frameborder="0" allowfullscreen></iframe>
+            <a class="twitter-timeline" data-width="900" data-height="800" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/nekta_eia">
+              Follow us on Twitter!
+            </a>
+            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
           </div>
           <div class="col-lg-5 col-lg-offset-1">
             <h6> Watch This</h6>
@@ -70,23 +72,6 @@
     </div>
   </section>
 
-  <section id="feature-three">
-    <div class="container">
-      <div class="row">
-        <div class="feature-content">
-          <div class="col-lg-6 hidden-md-down">
-
-            <a class="twitter-timeline" data-width="600" data-height="800" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/nekta_eia">
-              Follow us on Twitter!
-            </a>
-            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="feature-two" class="feature-dark">
     <div class="container">
       <div class="row">
@@ -97,7 +82,7 @@
             <p class="lead"> poopopopoppo opoopp poopo
               opopop oop poppopopopo popo poppo pop ooo
             </p>
-            <a href="" role="button" class="btn btn-secondary-outline btn-lg">FOLLOW US!!!!</a>
+            <a href="" class="btn btn-lg btn-success">Sign up</a>
 
           </div>
           <div class="col-lg-6 text-sm-center hidden-md-down">
@@ -112,7 +97,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          &copy; 2016 Nekta company, created Jully 2016
+          &copy; 2016 Nekta company, created July 2016
           as part of European Innovation Academy program.
           <br> Website created by <a href="https://fr.linkedin.com/in/valentinberthomier">Valentin BERTHOMIER</a>
         </div>
