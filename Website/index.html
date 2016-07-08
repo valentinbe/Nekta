@@ -11,6 +11,50 @@
 
   <!-- Custom CSS -->
   <link href="startup.css" rel="stylesheet">
+
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCw0_OEmynQsapq_dxhnaUOTg4bg440Fuw",
+    authDomain: "nektafr.firebaseapp.com",
+    databaseURL: "https://nektafr.firebaseio.com/",
+    storageBucket: "nektafr.appspot.com",
+  };
+  firebase.initializeApp(config);
+
+  //  window.location.reload();
+
+  //email regex
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  function sendemail(){
+    var emailin = document.getElementById('emailinput');
+
+    var bigOne = document.getElementById('bigOne');
+    var dbRef = firebase.database().ref().child('text');
+    //  dbRef.on('value', snap => bigOne.innerText = snap.val());
+    var email = emailin.value;
+
+    if (validateEmail(email)) {
+      var messageListRef = firebase.database().ref().child('emails');
+      var newMessageRef = messageListRef.push();
+      newMessageRef.set({ 'email': email });
+
+      window.alert("Thank you!");
+    } else {
+      window.alert("Please enter valid email");
+    }
+    //      messagesRef.push({ name: 'email', text: email });
+    //      emailin.value = '';
+  }
+  //  var dbRef = firebase.database().ref().child('text');
+  //  dbRef.on('value', snap => bigOne.innerText = snap.val());
+  </script>
+
 </head>
 <body>
 
@@ -39,14 +83,15 @@
   <div id="stage">
     <div id="stage-caption">
       <h1 class="display-3">Why have cotton when you can have a hive?</h1>
+      <h1 id="bigOne">popopopo</h1>
       <p>Stay tuned!</p>
 
 
       <div class="input-group input-group-lg">
         <span class="input-group-addon" id="sizing-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Email adress" aria-describedby="sizing-addon1">
+        <input type="text" class="form-control" placeholder="Email adress" aria-describedby="sizing-addon1" id="emailinput">
         <span class="input-group-btn">
-          <button class="btn btn-secondary" type="button">Sign up!</button>
+          <button class="btn btn-secondary" type="button" id="signupbutton" onclick="sendemail()">Sign up!</button>
         </span>
       </div>
 
