@@ -34,9 +34,6 @@
   function sendemail(){
     var emailin = document.getElementById('emailinput');
 
-    var bigOne = document.getElementById('bigOne');
-    var dbRef = firebase.database().ref().child('text');
-    //  dbRef.on('value', snap => bigOne.innerText = snap.val());
     var email = emailin.value;
 
     if (validateEmail(email)) {
@@ -48,11 +45,7 @@
     } else {
       window.alert("Please enter valid email");
     }
-    //      messagesRef.push({ name: 'email', text: email });
-    //      emailin.value = '';
   }
-  //  var dbRef = firebase.database().ref().child('text');
-  //  dbRef.on('value', snap => bigOne.innerText = snap.val());
   </script>
 
 </head>
@@ -83,7 +76,6 @@
   <div id="stage">
     <div id="stage-caption">
       <h1 class="display-3">Why have cotton when you can have a hive?</h1>
-      <h1 id="bigOne">popopopo</h1>
       <p>Stay tuned!</p>
 
 
