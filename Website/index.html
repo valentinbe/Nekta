@@ -23,7 +23,7 @@
         currentEmailRef = rootRef.child('emails');
 
         UpdateBtn.addEventListener('click', function() {
-          currentEmailRef.set(EmailAddress.value);
+          currentEmailRef.push(EmailAddress.value);
           EmailAddress.value = '';
         };
         currentEmailRef.on('value', function(snapshot) {
