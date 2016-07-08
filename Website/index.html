@@ -1,4 +1,4 @@
-HET<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Required meta tags always come first -->
@@ -13,6 +13,36 @@ HET<!DOCTYPE html>
   <link href="startup.css" rel="stylesheet">
 </head>
 <body>
+
+
+	<!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+  <!-- Initialize Firebase --->
+  <script>
+    var config = {
+      apiKey: "AIzaSyANiutLLHp7Arh1j9693tcKDpEh4zDynT8",
+      authDomain: "nekta-7bbb4.firebaseapp.com",
+      databaseURL: "https://nekta-7bbb4.firebaseio.com",
+      storageBucket: "nekta-7bbb4.appspot.com",
+    };
+    firebase.initializeApp(config);
+  </script>
+
+  <script>
+    var rootRef = new Firebase('https://nekta-7bbb4.firebaseio.com/emails'),
+        EmailAddress = document.getElementById('usr'),
+        UpdateBtn = document.getElementById('sign_up'),
+        currentEmailRef = rootRef.child('emails');
+
+        UpdateBtn.addEventListener('click', function() {
+
+          currentEmailRef.push(EmailAddress.value);
+          EmailAddress.value = '';
+        };
+        currentEmailRef.on('value', function(snapshot) {
+          CurrentEmailAddress.innerText = snapshot.val();
+        };
+  </script>
 
 
   <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top">
@@ -46,7 +76,7 @@ HET<!DOCTYPE html>
         <span class="input-group-addon" id="sizing-addon1">@</span>
         <input type="text" class="form-control" placeholder="Email adress" aria-describedby="sizing-addon1">
         <span class="input-group-btn">
-          <button class="btn btn-secondary" type="button">Sign up!</button>
+          <button class="btn btn-secondary" type="button" id="sign_up" >Sign up!</button>
         </span>
       </div>
 
