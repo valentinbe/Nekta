@@ -11,37 +11,54 @@
 
   <!-- Custom CSS -->
   <link href="startup.css" rel="stylesheet">
+
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCw0_OEmynQsapq_dxhnaUOTg4bg440Fuw",
+    authDomain: "nektafr.firebaseapp.com",
+    databaseURL: "https://nektafr.firebaseio.com/",
+    storageBucket: "nektafr.appspot.com",
+  };
+  firebase.initializeApp(config);
+
+  //  window.location.reload();
+
+  //email regex
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  function sendemail(){
+    var emailin = document.getElementById('emailinput');
+
+    var email = emailin.value;
+
+    if (validateEmail(email)) {
+      var messageListRef = firebase.database().ref().child('emails');
+      var newMessageRef = messageListRef.push();
+      newMessageRef.set({ 'email': email });
+
+      window.alert("Thank you!");
+    } else {
+      window.alert("Please enter valid email");
+    }
+  }
+
+  //user presses enter key event
+  function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+        sendemail();
+        return false;
+    }
+    return true;
+  }
+
+  </script>
 </head>
 <body>
-
-
-	<!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
-  <!-- Initialize Firebase --->
-  <script>
-    var config = {
-      apiKey: "AIzaSyANiutLLHp7Arh1j9693tcKDpEh4zDynT8",
-      authDomain: "nekta-7bbb4.firebaseapp.com",
-      databaseURL: "https://nekta-7bbb4.firebaseio.com",
-      storageBucket: "nekta-7bbb4.appspot.com",
-    };
-    firebase.initializeApp(config);
-  </script>
-
-  <script>
-    var rootRef = new Firebase('https://nekta-7bbb4.firebaseio.com/emails'),
-        EmailAddress = document.getElementById('usr'),
-        UpdateBtn = document.getElementById('sign_up'),
-        currentEmailRef = rootRef.child('emails');
-
-        function tst('click', function()) {
-          window.location.reload();
-          currentEmailRef.push(EmailAddress.value);
-          EmailAddress.value = '';
-        };
-  </script>
-
-
   <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top">
     <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
       &#9776;
@@ -71,9 +88,9 @@
 
       <div class="input-group input-group-lg">
         <span class="input-group-addon" id="sizing-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Email adress" aria-describedby="sizing-addon1">
+        <input type="text" class="form-control" placeholder="Email address" aria-describedby="sizing-addon1" id="emailinput" onkeypress="return runScript(event)">
         <span class="input-group-btn">
-          <button class="btn btn-secondary" type="button" id="sign_up" >Sign up!</button>
+          <button class="btn btn-secondary" type="button" id="signupbutton" onclick="sendemail()">Subscribe!</button>
         </span>
       </div>
 
@@ -118,7 +135,7 @@
             <p class="lead"> poopopopoppo opoopp poopo
               opopop oop poppopopopo popo poppo pop ooo
             </p>
-            <a href="" class="btn btn-lg btn-success">Sign up</a>
+            <a href="" class="btn btn-lg btn-success">Subscribe</a>
 
           </div>
           <div class="col-lg-6 text-sm-center hidden-md-down">
@@ -159,7 +176,7 @@
           <h6>Our product</h6>
           <ul class="list-unstyled">
             <li><a href="">Jobs</a></li>
-            <li><a href="">Sign up</a></li>
+            <li><a href="">Subscribe</a></li>
             <li><a href="">Sign in</a></li>
             <li><a href="">Contact Us</a></li>
           </ul>
