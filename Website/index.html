@@ -31,32 +31,30 @@
     return re.test(email);
   }
 
-  function sendemail(){
-    var emailin = document.getElementById('emailinput');
+function sendemail(){
+  var emailin = document.getElementById('emailinput');
+  var email = emailin.value;
 
-    var email = emailin.value;
+  if (validateEmail(email)) {
+    var messageListRef = firebase.database().ref().child('email_list');
+    messageListRef.push({ 'email': email });
 
-    if (validateEmail(email)) {
-      var messageListRef = firebase.database().ref().child('emails');
-      var newMessageRef = messageListRef.push();
-      newMessageRef.set({ 'email': email });
-
-      window.alert("Thank you!");
-    } else {
-      window.alert("Please enter valid email");
-    }
+    window.alert("Thank you!");
+  } else {
+    window.alert("Please enter valid email");
   }
+}
 
-  //user presses enter key event
-  function runScript(event) {
-    if (event.which == 13 || event.keyCode == 13) {
-        sendemail();
-        return false;
-    }
-    return true;
+//user presses enter key event
+function runScript(event) {
+  if (event.which == 13 || event.keyCode == 13) {
+    sendemail();
+    return false;
   }
+  return true;
+}
 
-  </script>
+</script>
 </head>
 <body>
   <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top">
