@@ -33,8 +33,8 @@
 
   function sendemail(){
     var emailin = document.getElementById('emailinput');
-
     var email = emailin.value;
+    window.location.reload();
 
     if (validateEmail(email)) {
       var messageListRef = firebase.database().ref().child('emails');
@@ -42,6 +42,7 @@
       newMessageRef.set({ 'email': email });
 
       window.alert("Thank you!");
+
     } else {
       window.alert("Please enter valid email");
     }
