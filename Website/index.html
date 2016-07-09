@@ -46,6 +46,16 @@
       window.alert("Please enter valid email");
     }
   }
+
+  //user presses enter key event
+  function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+        sendemail();
+        return false;
+    }
+    return true;
+  }
+
   </script>
 </head>
 <body>
@@ -78,7 +88,7 @@
 
       <div class="input-group input-group-lg">
         <span class="input-group-addon" id="sizing-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Email adress" aria-describedby="sizing-addon1" id="emailinput">
+        <input type="text" class="form-control" placeholder="Email adress" aria-describedby="sizing-addon1" id="emailinput" onkeypress="return runScript(event)">
         <span class="input-group-btn">
           <button class="btn btn-secondary" type="button" id="signupbutton" onclick="sendemail()">Sign up!</button>
         </span>
