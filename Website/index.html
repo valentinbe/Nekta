@@ -1,7 +1,21 @@
-<!DOCTYPE html> awefiowafjwea
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Firebase -->
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link href="startup.css" rel="stylesheet">
+</head>
+<body>
+
+
+	<!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
   <!-- Initialize Firebase --->
   <script>
@@ -17,31 +31,15 @@
   <script>
     var rootRef = new Firebase('https://nekta-7bbb4.firebaseio.com/emails'),
         EmailAddress = document.getElementById('usr'),
-        UpdateBtn = document.getElementById('SaveEmail'),
+        UpdateBtn = document.getElementById('sign_up'),
         currentEmailRef = rootRef.child('emails');
 
-        UpdateBtn.addEventListener('click', function() {
+        function tst('click', function()) {
+          window.location.reload();
           currentEmailRef.push(EmailAddress.value);
           EmailAddress.value = '';
         };
-        currentEmailRef.on('value', function(snapshot) {
-          CurrentEmailAddress.innerText = snapshot.val();
-        };
   </script>
-
-
-  <!-- Required meta tags always come first -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
-
-  <!-- Custom CSS -->
-  <link href="startup.css" rel="stylesheet">
-</head>
-<body>
 
 
   <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top">
@@ -52,10 +50,10 @@
     <div class="collapse navbar-toggleable-xs" id="startupNavbar">
       <ul class="nav navbar-nav pull-sm-right">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About us</a>
+          <a class="nav-link" href="about.html">About us</a>
         </li>
         <li class="nav-item">
           <a class="btn btn-primary" href="#">Sign in</a>
@@ -68,9 +66,18 @@
   <div id="stage">
     <div id="stage-caption">
       <h1 class="display-3">Why have cotton when you can have a hive?</h1>
-      <p>Just Hive.</p>
-      <button id="SaveEmail" class="btn btn-lg btn-success">Sign up</button>
-      <input type="text" class="form-control" id="usr">
+      <p>Stay tuned!</p>
+
+
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">@</span>
+        <input type="text" class="form-control" placeholder="Email adress" aria-describedby="sizing-addon1">
+        <span class="input-group-btn">
+          <button class="btn btn-secondary" type="button" id="sign_up" >Sign up!</button>
+        </span>
+      </div>
+
+
     </div>
   </div>
 
