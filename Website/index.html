@@ -12,14 +12,15 @@
   <!-- Custom CSS -->
   <link href="startup.css" rel="stylesheet">
 
-  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
-  <script>
+
+<script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+<script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyCw0_OEmynQsapq_dxhnaUOTg4bg440Fuw",
-    authDomain: "nektafr.firebaseapp.com",
-    databaseURL: "https://nektafr.firebaseio.com/",
-    storageBucket: "nektafr.appspot.com",
+    apiKey: "AIzaSyCE2AAWfF_Zb7w3tEuh1DYs45sdCsP6Qu8",
+    authDomain: "nekta-1c005.firebaseapp.com",
+    databaseURL: "https://nekta-1c005.firebaseio.com",
+    storageBucket: "nekta-1c005.appspot.com",
   };
   firebase.initializeApp(config);
 
@@ -31,12 +32,67 @@
     return re.test(email);
   }
 
+
+/*(wilmaRef.transaction(function(currentData) {
+
+var USERS_LOCATION = 'https://SampleChat.firebaseIO-demo.com/users';
+
+function userExistsCallback(userId, exists) {
+if (exists) {
+  alert('user ' + userId + ' exists!');
+} else {
+  alert('user ' + userId + ' does not exist!');
+}
+}
+
+// Tests to see if /users/<userId> has any data.
+function checkIfUserExists(userId) {
+var usersRef = new Firebase(USERS_LOCATION);
+usersRef.child(userId).once('value', function(snapshot) {
+  var exists = (snapshot.val() !== null);
+  userExistsCallback(userId, exists);
+});
+
+
+}); */
+
+
+  // Firebase instance
+  var ref = new Firebase("https://nekta-1c005.firebaseio.com");
+
+
+  function emailExistsCallback(mail, exists) {
+    if (exists) {
+      return true;
+    } else {
+      return false;
+    };
+  };
+
+  function checkIfEmailExists(mail) {
+    firebase.database().ref().child('emails').once("value", function(allMessagesSnapshot) {
+      allMessagesSnapshot.forEach(function(messageSnapshot) {
+        var text = messageSnapshot.child('email').val();
+        exists = (text === mail)
+        if (exists) {
+          emailExistsCallback(mail, exists);
+          return;
+        };
+    });
+  });
+  };
+
+
+
+
   function sendemail(){
     var emailin = document.getElementById('emailinput');
     var email = emailin.value;
-    window.location.reload();
 
-    if (validateEmail(email)) {
+    if (checkIfEmailExists(email)) {
+      alert('user ' + mail + ' exists!');
+      return;
+    } else if (validateEmail(email)) {
       var messageListRef = firebase.database().ref().child('emails');
       var newMessageRef = messageListRef.push();
       newMessageRef.set({ 'email': email });
@@ -58,14 +114,19 @@
   }
 
   </script>
+
+
+
+
 </head>
 <body>
   <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top">
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
+    <button style="float:right"; class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
       &#9776;
     </button>
     <a class="navbar-brand" href="#"><img src="tet.png" alt="startup.logo" height="35"></a>
-    <div class="collapse navbar-toggleable-xs" id="startupNavbar">
+    <div class=" dropdown collapse navbar-toggleable-xs" style= "float:right"; id="startupNavbar">
+
       <ul class="nav navbar-nav pull-sm-right">
         <li class="nav-item active">
           <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
@@ -83,6 +144,7 @@
 
   <div id="stage">
     <div id="stage-caption">
+      <div class="col-lg-12 text-sm-center">
       <h1 class="display-3">Why have cotton when you can have a hive?</h1>
       <p>Stay tuned!</p>
 
@@ -94,8 +156,7 @@
           <button class="btn btn-secondary" type="button" id="signupbutton" onclick="sendemail()">Subscribe!</button>
         </span>
       </div>
-
-
+      </div>
     </div>
   </div>
 
@@ -108,7 +169,7 @@
             <a class="twitter-timeline" data-width="900" data-height="800" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/nekta_eia">
               Follow us on Twitter!
             </a>
-            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <script async class="img-responsive" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
           </div>
           <div class="col-lg-5 col-lg-offset-1">
             <h6> Watch This</h6>
@@ -139,7 +200,7 @@
             <a href="" class="btn btn-lg btn-success">Subscribe</a>
 
           </div>
-          <div class="col-lg-6 text-sm-center hidden-md-down">
+          <div class="col-lg-6 text-sm-center img-fluid hidden-md-down">
             <img src="phonewall.png" alt="phone.wallpaper" height="600">
           </div>
         </div>
