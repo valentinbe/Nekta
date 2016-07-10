@@ -35,12 +35,25 @@
 
   function validateName() {
     var namein = document.getElementById('name').value;
+
+    if(namein.value == "") {
+      window.alert("Error: Please enter a name");
+      namein.focus();
+      return false;
+    }
+    re = /^\w+$/;
+    if(!re.test(namein.value)) {
+      window.alert("Error: Please enter a valid name");
+      namein.focus();
+      return false;
+    }
+    return true;
   }
 
   function validatePassword() {
     var passwordin = document.getElementById('password');
     var confirmin = document.getElementById('confirm');
-
+    var usernamein = document.getElementById('username');
 
     if(passwordin.value != "" && passwordin.value == confirmin.value) {
       if(passwordin.value.length < 6) {
@@ -76,7 +89,6 @@
       passwordin.focus();
       return false;
     }
-    window.alert("You entered a valid password: " + passwordin.value);
     return true;
   }
 
@@ -94,6 +106,7 @@
       usernamein.focus();
       return false;
     }
+    return true;
   }
 
   function validateaccount()
@@ -120,9 +133,10 @@
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
-        window.alert("Email address / username already registered");
+        window.alert(errorMessage);
       });
     }
+
   }
   </script>
 </head>
