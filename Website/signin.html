@@ -60,11 +60,11 @@
 
 
 
-   function validateEmailwithoutpopup(){
-     var email = document.getElementById('email').value;
-     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-     return re.test(email);
-   }
+  function validateEmailwithoutpopup(){
+    var email = document.getElementById('email').value;
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
 
   //email regex
   function validateEmail() {
@@ -168,9 +168,9 @@
     var emailin = document.getElementById('email').value;
     if(validateEmailwithoutpopup()&&emailin==(user.email))
     {
-        user.sendEmailVerification();
-        window.alert("Thank you for registering, a validation email has been sent to " + user.email);
-        document.location.href = "index.html";
+      user.sendEmailVerification();
+      window.alert("Thank you for registering, a validation email has been sent to " + user.email);
+      document.location.href = "index.html";
     }
   });
 
@@ -285,68 +285,61 @@
                 <button type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="sendreg()">Register</button>
               </div>
 
-
-
-
               <h6 class="description text-sm-center">OR</h6>
               <div class="row pt-md">
-                      <div class="row main">
+                <div class="row main">
 
-                        <div id="firebaseui-auth-container"></div>
-                      </div></div>
-
-
-
-
-            </form>
+                  <div id="firebaseui-auth-container"></div>
+                </div></div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer id="main-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          &copy; 2016 Nekta company, created July 2016
-          as part of European Innovation Academy program.
-          <br> Website created by <a href="https://fr.linkedin.com/in/valentinberthomier">Valentin BERTHOMIER</a>
-        </div>
-        <div class="col-md-2">
-          <h6>Our product</h6>
-          <ul class="list-unstyled">
-            <li><a href="">Home</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">The app</a></li>
-            <li><a href="">Video</a></li>
-          </ul>
-        </div>
-        <div class="col-md-2">
-          <h6>Social network</h6>
-          <ul class="list-unstyled">
-            <li><a href="">Twitter</a></li>
-            <li><a href="">Youtube</a></li>
-            <li><a href="">Facebook</a></li>
-            <li><a href="">Instagram</a></li>
-          </ul>
-        </div>
-        <div class="col-md-2">
-          <h6>Our product</h6>
-          <ul class="list-unstyled">
-            <li><a href="">Jobs</a></li>
-            <li><a href="">Sign up</a></li>
-            <li><a href="">Sign in</a></li>
-            <li><a href="">Contact Us</a></li>
-          </ul>
+    <footer id="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            &copy; 2016 Nekta company, created July 2016
+            as part of European Innovation Academy program.
+            <br> Website created by <a href="https://fr.linkedin.com/in/valentinberthomier">Valentin BERTHOMIER</a>
+          </div>
+          <div class="col-md-2">
+            <h6>Our product</h6>
+            <ul class="list-unstyled">
+              <li><a href="">Home</a></li>
+              <li><a href="">About</a></li>
+              <li><a href="">The app</a></li>
+              <li><a href="">Video</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <h6>Social network</h6>
+            <ul class="list-unstyled">
+              <li><a href="">Twitter</a></li>
+              <li><a href="">Youtube</a></li>
+              <li><a href="">Facebook</a></li>
+              <li><a href="">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <h6>Our product</h6>
+            <ul class="list-unstyled">
+              <li><a href="">Jobs</a></li>
+              <li><a href="">Sign up</a></li>
+              <li><a href="">Sign in</a></li>
+              <li><a href="">Contact Us</a></li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 
 
-  <!-- jQuery first, then Bootstrap JS. -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-</body>
-</html>
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+  </body>
+  </html>
