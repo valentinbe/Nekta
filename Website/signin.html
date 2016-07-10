@@ -23,8 +23,6 @@
   };
   firebase.initializeApp(config);
 </script>
-<script>
-
   <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.css" />
   <script type="text/javascript">
@@ -165,11 +163,31 @@
     }
   }
 
+
   firebase.auth().onAuthStateChanged(function(user) {
+    var namein = document.getElementById('name').value;
     var emailin = document.getElementById('email').value;
+    var usernamein = document.getElementById('username').value;
+    var passwordin = document.getElementById('password').value;
+    var confirmin = document.getElementById('confirm').value;
+
     if(validateEmailwithoutpopup()&&emailin==(user.email))
     {
+      test();
+
       user.sendEmailVerification();
+      // Updates the user attributes:
+      user.updateProfile({
+        displayName: namein,
+        photoURL: "profile.jpg"
+      }).then(function() {
+        // Profile updated successfully!
+        var displayName = user.displayName;
+        var photoURL = user.photoURL;
+      }, function(error) {
+        // An error happened.
+      });
+
       window.alert("Thank you for registering, a validation email has been sent to " + user.email);
       document.location.href = "index.html";
     }
@@ -189,7 +207,6 @@
         var errorMessage = error.message;
         window.alert(errorMessage);
       });
-
     }
   }
   </script>
