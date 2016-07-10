@@ -1,8 +1,10 @@
+@import 'https://fonts.googleapis.com/css?family=Raleway';
 html,
 body{
   height: 100%;
 }
 body{
+      font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   color: #6c6f73;

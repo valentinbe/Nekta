@@ -1,6 +1,9 @@
-@import url(https://fonts.googleapis.com/css?family=Quicksand:400,300);
+@import 'https://fonts.googleapis.com/css?family=Raleway';
 body{
-    font-family: 'Quicksand', sans-serif;
+      font-family: 'Raleway', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  color: #6c6f73;
 }
 #navbar a{
   color: white;
