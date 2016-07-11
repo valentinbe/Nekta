@@ -42,6 +42,8 @@
       messageListRef.push({ 'email': email });
 
       window.alert("Thank you!");
+      document.activeElement.blur();
+      emailin.value = "";
     } else {
       window.alert("Please enter valid email");
     }
