@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link href="startup.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="hip.png" type="image/x-icon"/>
+  <link rel="icon" href="hip.png" type="image/x-icon"/>
+
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCE2AAWfF_Zb7w3tEuh1DYs45sdCsP6Qu8",
+    authDomain: "nekta-1c005.firebaseapp.com",
+    databaseURL: "https://nekta-1c005.firebaseio.com",
+    storageBucket: "nekta-1c005.appspot.com",
+  };
+  firebase.initializeApp(config);
+</script>
+<script>
+  //email regex
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  function sendemail(){
+    var emailin = document.getElementById('emailinput');
+    var email = emailin.value;
+
+    if (validateEmail(email)) {
+      var messageListRef = firebase.database().ref().child('email_list');
+      messageListRef.push({ 'email': email });
+      emailin.value() = "";
+      window.alert("Thank you!");
+      document.activeElement.blur();
+    } else {
+      window.alert("Please enter valid email");
+    }
+  }
+
+  //user presses enter key event
+  function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+      sendemail();
+      return false;
+    }
+    return true;
+  }
+
+  </script>
+</head>
+<body>
+  <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top">
+    <button style="float:right"; class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
+     &#9776;
+   </button>
+   <a class="navbar-brand" href="index.html"><img src="tet.png" alt="startup.logo" height="35"></a>
+    <div class="collapse navbar-toggleable-xs" id="startupNavbar">
+      <ul class="nav navbar-nav pull-sm-right">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary" href="signin.html">Sign in</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="stage">
+    <div id="stage-caption">
+      <h1 class="display-3">Back On Your Beeline</h1>
+      <p>..with a helping hand from Nekta!</p>
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">@</span>
+        <input type="text" class="form-control" placeholder="Email address" aria-describedby="sizing-addon1" id="emailinput" onkeypress="return runScript(event)">
+        <span class="input-group-btn">
+          <button class="btn btn-secondary" type="button" id="signupbutton" onclick="sendemail()">Subscribe!</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <section id="feature-one">
+      <div class="container">
+        <div class="row" style="padding:50px">
+            <div class="col-lg-6">
+              <img src="reverse_ed.png">
+            </div>
+            <div class="col-lg-6">
+              <h6> A new direction</h6>
+              <h2> Education in Reverse!</h2>
+              <p class="lead"> Underemployment is a topic often brushed under the carpet in favour of more flattering statistics. Our mission is to lead the way in redefining the future prospects of graduates.
+              </p>
+              <p> As the European job market continues to become more competitive we're seeing an increase in graduates settle for roles with little relevance to their education. Many of the students leaving education with high level qualifications are at risk of being left behind by a system that's disempowered, demotivated and disillusioned it's most recent generation.
+              </p>
+              <p class="lead"> Our mission is to lead the way in redefining the future prospects of graduates. It's time to set a new roadmap for success!</p>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <section id="feature-two" class="feature-dark">
+      <div class="container">
+        <div class="row" style="padding:2.5%">
+          <div class="col-lg-4">
+              <img src="projects.png" style="max-width:80%;margin-bottom:15px" class="img-responsive">
+              <h6>Discover projects</h6>
+              <p class="lead">Explore a plethora of predefined project situations across a multitude of enterprise and technical areas.</p>
+          </div>
+          <div class="col-lg-4">
+              <img src="process.png" style="max-width:80%;margin-bottom:15px" class="img-responsive">
+              <h6>Learn the process</h6>
+              <p class="lead">Focus on what's important and take the alternative path to defining your future career. Learn to learn.</p>
+          </div>
+          <div class="col-lg-4">
+              <img src="support.png" style="max-width:80%;margin-bottom:15px" class="img-responsive">
+              <h6>community support</h6>
+              <p class="lead">With access to a community of enthusiastic learners the relevant answers are at your fingertips.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="feature-three">
+      <div class="container">
+        <div class="row">
+          <div class="feature-content">
+            <div class="col-lg-6">
+              <a class="twitter-timeline" data-width="900" data-height="800" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/nekta_eia">
+                Follow us on Twitter!
+              </a>
+              <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+              </div>
+        <!--    <div class="feature-content" style="border:1px solid #000"> -->
+              <div class="col-lg-5 col-lg-offset-1">
+                <h6> European Innovation Academy 2016</h6>
+                <h2> A new start with a fresh perspective!</h2>
+                <p class="lead"> Nekta is the brainchild of an international team of students dedicated to revolutionising the education system.
+                </p>
+                <p> We're enjoying the picturesque city of Nice in the French Riviera whilst working among some of the most incredibly talented individuals from across the world. We're launching Nekta to ensure our time here can transform as many lives as possible long after the programme finishes.
+                </p>
+                <p class="lead">Meet our <a href="about.html">Team</a>!</p>
+                <p>We've formed a very diverse team consisting of 2 developers, a local Frenchman and an American from Berkeley, a strategic marketeer from Russia who studied across Europe, a Norwegian entrepreneur and a British enterprise architect. Within our team we have a elegant blend of culture, skills and experience.
+                </p>
+              </div>
+          </div>
+            </div>
+          </div>
+          </div>
+
+    </section>
+
+    <section id="feature-four" class="feature-dark">
+      <div class="container">
+        <div class="row">
+          <div class="feature-content">
+            <div class="col-lg-6 feature-caption">
+              <h6>Coming soon</h6>
+              <h2>Subscribe to stay updated!</h2>
+              <p class="lead"> In the next few days we'll be releasing Nekta. To ensure our overall user experience is simple and effective we're asking our community of learners for feedback!
+              </p>
+              <a href="" class="btn btn-lg btn-success">Subscribe!</a>
+
+            </div>
+            <div class="col-lg-6 text-sm-center hidden-lg-down">
+              <img src="phonewall.png" alt="phone.wallpaper" height="600">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <footer id="main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          &copy; 2016 Nekta company, created July 2016
+          as part of European Innovation Academy program.
+          <br> Website created by <a href="https://fr.linkedin.com/in/valentinberthomier">Valentin BERTHOMIER</a>
+        </div>
+        <div class="col-md-2">
+          <h6>Our product</h6>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html">The app</a></li>
+            <li><a href="index.html">Video</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h6>Social network</h6>
+          <ul class="list-unstyled">
+            <li><a href="https://twitter.com/nekta_eia">Twitter</a></li>
+            <li><a href="https://twitter.com/nekta_eia">Youtube</a></li>
+            <li><a href="https://twitter.com/nekta_eia">Facebook</a></li>
+            <li><a href="https://twitter.com/nekta_eia">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h6>Our product</h6>
+          <ul class="list-unstyled">
+            <li><a href="signin.html">Jobs</a></li>
+            <li><a href="signin.html">Subscribe</a></li>
+            <li><a href="signin.html">Sign in</a></li>
+            <li><a href="signin.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery first, then Bootstrap JS. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+</body>
+</html>
