@@ -19,29 +19,38 @@
   <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
   <!-- Initialize Firebase --->
   <script>
+    // Initialize Firebase
     var config = {
-      apiKey: "AIzaSyANiutLLHp7Arh1j9693tcKDpEh4zDynT8",
-      authDomain: "nekta-7bbb4.firebaseapp.com",
-      databaseURL: "https://nekta-7bbb4.firebaseio.com",
-      storageBucket: "nekta-7bbb4.appspot.com",
+      apiKey: "AIzaSyCw0_OEmynQsapq_dxhnaUOTg4bg440Fuw",
+      authDomain: "nektafr.firebaseapp.com",
+      databaseURL: "https://nektafr.firebaseio.com",
+      storageBucket: "nektafr.appspot.com",
     };
     firebase.initializeApp(config);
   </script>
 
   <script>
-    var rootRef = new Firebase('https://nekta-7bbb4.firebaseio.com/emails'),
-        EmailAddress = document.getElementById('usr'),
+    var dbRef = firebase.database().ref().child('text');
+
+
+    function tst() {
+      window.location.reload();
+dbRef.on('value',snap => "bigOne.innertext" = snap.val());
+    }
+
+
+//    var rootRef = new Firebase('https://nekta-7bbb4.firebaseio.com/emails'),
+/*/        EmailAddress = document.getElementById('usr'),
         UpdateBtn = document.getElementById('sign_up'),
         currentEmailRef = rootRef.child('emails');
 
-        UpdateBtn.addEventListener('click', function() {
-
+        function tst() {
+          window.location.reload();
           currentEmailRef.push(EmailAddress.value);
           EmailAddress.value = '';
-        };
-        currentEmailRef.on('value', function(snapshot) {
-          CurrentEmailAddress.innerText = snapshot.val();
-        };
+        }*/
+
+
   </script>
 
 
@@ -76,7 +85,7 @@
         <span class="input-group-addon" id="sizing-addon1">@</span>
         <input type="text" class="form-control" placeholder="Email adress" aria-describedby="sizing-addon1">
         <span class="input-group-btn">
-          <button class="btn btn-secondary" type="button" id="sign_up" >Sign up!</button>
+          <button class="btn btn-secondary" type="button" id="sign_up" onclick="tst()">Sign up!</button>
         </span>
       </div>
 
