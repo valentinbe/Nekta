@@ -67,6 +67,14 @@
     return true;
   }
 
+  $(document).ready(function(){
+    //Handles menu drop down
+    window.alert("popo");
+    $('.dropdown-menu').find('form').click(function (e) {
+        e.stopPropagation();
+    });
+});
+
   </script>
 </head>
 <body>
@@ -98,6 +106,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <button class="btn btn-primary-outline dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Login
           </button>
+
           <div  class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2" style="padding: 15px;min-width: 250px;">
             <li>
                <div class="row">
