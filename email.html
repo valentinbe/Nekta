@@ -105,6 +105,7 @@
         });
         // [END authwithemail]
       }
+      window.alert("login toggled successful");
   }
 
   /**
@@ -171,11 +172,11 @@
         var refreshToken = user.refreshToken;
         var providerData = user.providerData;
         // [START_EXCLUDE silent]
-        window.alert('Signed in successfully ' + email);
+        window.alert('Signed in successfully' + email);
         //document.getElementById('quickstart-sign-in').textContent = 'Sign out';
 
         if (!emailVerified) {
-          window.alert('Email not verified yet, please verify your email');
+          window.alert('Email not verified yet, please verify your emails');
         }
         // [END_EXCLUDE]
       } else {
