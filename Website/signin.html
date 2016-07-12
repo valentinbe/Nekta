@@ -199,6 +199,7 @@
     var passwordin = document.getElementById('password').value;
     var confirmin = document.getElementById('confirm').value;
 
+
     if (validateaccount()) {
       firebase.auth().createUserWithEmailAndPassword(emailin, passwordin).catch(function(error) {
         // Handle Errors here.
