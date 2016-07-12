@@ -40,8 +40,9 @@
     if (validateEmail(email)) {
       var messageListRef = firebase.database().ref().child('email_list');
       messageListRef.push({ 'email': email });
-
+      emailin.value() = "";
       window.alert("Thank you!");
+      document.activeElement.blur();
     } else {
       window.alert("Please enter valid email");
     }
@@ -95,25 +96,24 @@
 
   <section id="feature-one">
       <div class="container">
-        <div class="row" style="padding:60px">
+        <div class="row" style="padding:50px">
             <div class="col-lg-6">
               <img src="reverse_ed.png">
             </div>
             <div class="col-lg-6">
               <h6> A new direction</h6>
               <h2> Education in Reverse!</h2>
-              <p class="lead"> Underemployment is a topic often brushed under the carpet in favour of more flattering statistics. 
+              <p class="lead"> Underemployment is a topic often brushed under the carpet in favour of more flattering statistics.
               </p>
-              <p> As the European job market continues to become more competitive we're seeing an increase in students settle for roles with little relevance to their education. Many of the students leaving education with high level qualifications are at risk of being left behind. The fast changing environment always leaves a room for improvement and differentiation of one's skills. Even a small additional skill can change the growth opportunities.              </p>
-              <p class="lead"> Our mission is to lead the way in redefining the future prospects of students. It's time to set a new roadmap for success!</p>
-            </div>
+              <p> As the European job market continues to become more competitive we're seeing an increase in students settle for roles with little relevance to their education. Many of the students leaving education with high level qualifications are at risk of being left behind. The fast changing environment always leaves a room for improvement and differentiation of one's skills. Even a small additional skill can change the growth opportunities.               </p>
+              <p class="lead"> Our mission is to lead the way in redefining the future prospects of students. It's time to set a new roadmap for success!            </div>
           </div>
         </div>
     </section>
 
     <section id="feature-two" class="feature-dark">
       <div class="container">
-        <div class="row" style="padding:60px">
+        <div class="row" style="padding:2.5%">
           <div class="col-lg-4">
               <img src="projects.png" style="max-width:80%;margin-bottom:15px" class="img-responsive">
               <h6>Discover projects</h6>
@@ -138,7 +138,7 @@
         <div class="row">
           <div class="feature-content">
             <div class="col-lg-6">
-              <a class="twitter-timeline" data-width="900" data-height="600" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/nekta_eia">
+              <a class="twitter-timeline" data-width="900" data-height="800" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/nekta_eia">
                 Follow us on Twitter!
               </a>
               <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>

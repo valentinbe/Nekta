@@ -11,27 +11,9 @@
 
   <!-- Custom CSS -->
   <link href="about.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 
   <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
-
-  <script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '516616088545486',
-      xfbml      : true,
-      version    : 'v2.6'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-
 <script>
   // Initialize Firebase
   var config = {
@@ -228,6 +210,15 @@
       });
     }
   }
+
+  //user presses enter key event
+  function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+      sendreg();
+      return false;
+    }
+    return true;
+  }
   </script>
 </head>
 <body>
@@ -253,7 +244,7 @@
     </div>
   </nav>
 
-
+<div id="stage">
   <section id="loginpannel" class="feature-login">
     <div class="container">
       <div class="row main">
@@ -273,7 +264,7 @@
                   <div class="input-group">
 
                     <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+                    <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name" onkeypress="return runScript(event)"/>
                   </div>
                 </div>
               </div>
@@ -283,7 +274,7 @@
                 <div class="cols-sm-10">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+                    <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" onkeypress="return runScript(event)"/>
                   </div>
                 </div>
               </div>
@@ -293,7 +284,7 @@
                 <div class="cols-sm-10">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                    <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username"/>
+                    <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" onkeypress="return runScript(event)"/>
                   </div>
                 </div>
               </div>
@@ -303,7 +294,7 @@
                 <div class="cols-sm-10">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                    <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password"/>
+                    <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" onkeypress="return runScript(event)"/>
                   </div>
                 </div>
               </div>
@@ -313,7 +304,7 @@
                 <div class="cols-sm-10">
                   <div class="input-group">
                     <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                    <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password"/>
+                    <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" onkeypress="return runScript(event)"/>
                   </div>
                 </div>
               </div>
@@ -334,7 +325,7 @@
         </div>
       </div>
     </section>
-
+</div>
     <footer id="main-footer">
       <div class="container">
         <div class="row">
