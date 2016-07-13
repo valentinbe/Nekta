@@ -5,26 +5,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Nekta - Team</title>
+  <title>Nekta</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 
   <!-- Custom CSS -->
-  <link href="about.css" rel="stylesheet">
-  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link href="startup.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="hip.png" type="image/x-icon"/>
+  <link rel="icon" href="hip.png" type="image/x-icon"/>
+
+  <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
   <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-80652622-1', 'auto');
-  ga('send', 'pageview');
-
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyCE2AAWfF_Zb7w3tEuh1DYs45sdCsP6Qu8",
+      authDomain: "nekta-1c005.firebaseapp.com",
+      databaseURL: "https://nekta-1c005.firebaseio.com",
+      storageBucket: "nekta-1c005.appspot.com",
+    };
+    firebase.initializeApp(config);
   </script>
 
   <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-80652622-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <script>
+  //email regex
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  function sendemail(){
+    var emailin = document.getElementById('emailinput');
+    var email = emailin.value;
+
+    if (validateEmail(email)) {
+      var messageListRef = firebase.database().ref().child('email_list');
+      messageListRef.push({ 'email': email });
+      emailin.value = "";
+      window.alert("Thank you!");
+      document.activeElement.blur();
+    } else {
+      window.alert("Please enter valid email");
+    }
+  }
+
+  //user presses enter key event
+  function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+      sendemail();
+      return false;
+    }
+    return true;
+  }
+
   function signinGoogle(){
     if (!firebase.auth().currentUser) {
         // [START createprovider]
@@ -250,15 +294,6 @@
   </script>
 </head>
 <body>
-  <!-- Google Tag Manager -->
-  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TQG8SN"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-TQG8SN');</script>
-  <!-- End Google Tag Manager -->
   <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top" style="background-color: #212121;">
     <button style="float:right"; class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
       &#9776;
@@ -314,127 +349,148 @@
   </nav>
 
   <div id="stage">
-    <section class="team">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-10 col-md-offset-1">
-            <div class="col-lg-12">
-              <h6 class="description">OUR TEAM</h6>
-              <div class="row pt-md">
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                  <div class="img-box" class="img-fluid">
-                    <img src="profile_daria.png" class="img-fluid" height="200">
-                    <ul class="text-center">
-                      <a href="https://www.facebook.com/daria.kuznetsova.39?fref=ts"><li><i class="fa fa-facebook"></i></li></a>
-                      <a href="#"><li><i class="fa fa-twitter"></i></li></a>
-                      <a href="https://no.linkedin.com/in/daria-kuznetsova-44a6415a"><li><i class="fa fa-linkedin"></i></li></a>
-                    </ul>
-                  </div>
-                  <h1>Daria</h1>
-                  <h2>Marketing</h2>
-                  <p>Our amazing strategic marketing management major from Russia. She loves our CEO's sunglasses..</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                  <div class="img-box" class="img-fluid">
-                    <img src="profile_jae.png" class="img-fluid" height="200">
-                    <ul class="text-center">
-                      <a href="https://www.facebook.com/jwon2"><li><i class="fa fa-facebook"></i></li></a>
-                      <a href="#"><li><i class="fa fa-twitter"></i></li></a>
-                      <a href="https://www.linkedin.com/in/jaewon-lee-b8ab7bbb"><li><i class="fa fa-linkedin"></i></li></a>
-                    </ul>
-                  </div>
-                  <h1>Jae</h1>
-                  <h2>Full stack developer</h2>
-                  <p>Part time professional Pokemon master, part time Bootstrap Ninja. He is also a third year Computer Science student from America. </p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                  <div class="img-box" class="img-fluid">
-                    <img src="profile_jon.png" class="img-fluid" height="200">
-                    <ul class="text-center">
-                      <a href="https://www.facebook.com/jonatanPaz?fref=ts"><li><i class="fa fa-facebook"></i></li></a>
-                      <a href="#"><li><i class="fa fa-twitter"></i></li></a>
-                      <a href="https://no.linkedin.com/in/jonatannordangpaz"><li><i class="fa fa-linkedin"></i></li></a>
-                    </ul>
-                  </div>
-                  <h1>Jonatan</h1>
-                  <h2>Business</h2>
-                  <p>#1 contender for the world's biggest coffee drinker. Also fourth year business student from Norway.</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                  <div class="img-box" class="img-fluid">
-                    <img src="profile.jpg" class="img-fluid" height="200">
-                    <ul class="text-center">
-                      <a href="https://www.facebook.com/valentin.berthomier"><li><i class="fa fa-facebook"></i></li></a>
-                      <a href="https://twitter.com/val_shg"><li><i class="fa fa-twitter"></i></li></a>
-                      <a href="https://fr.linkedin.com/in/valentinberthomier"><li><i class="fa fa-linkedin"></i></li></a>
-                    </ul>
-                  </div>
-                  <h1>Valentin</h1>
-                  <h2>Full stack developer/Designer</h2>
-                  <p>When he's not producing music or eating cheese, he's launching embedded system startups in Paris. He is a final year engineering school student and yes, he is from France.</p>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
-                  <div class="img-box" class="img-fluid">
-                    <img src="profile_kyle.png" class="img-fluid" height="200">
-                    <ul class="text-center">
-                      <a href="https://www.facebook.com/profile.php?id=100012872553198"><li><i class="fa fa-facebook"></i></li></a>
-                      <a href="https://twitter.com/KyCWesley"><li><i class="fa fa-twitter"></i></li></a>
-                      <a href="#"><li><i class="fa fa-linkedin"></i></li></a>
-                    </ul>
-                  </div>
-                  <h1>Kyle</h1>
-                  <h2>Operation</h2>
-                  <p>Nobody know his real identity, he walks bare foot and eats tofu. Some people say he is a final year student in entreprise development from England.</p>
-                </div>
+    <div id="stage-caption">
+      <h1 class="display-3">Education in reverse</h1>
+      <p>A learning path designed by YOU!</p>
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">@</span>
+        <input type="text" class="form-control" placeholder="We love you Email, we will let you know when it's ready!" aria-describedby="sizing-addon1" id="emailinput" onkeypress="return runScript(event)">
+        <span class="input-group-btn">
+          <button class="btn btn-secondary" type="button" id="signupbutton" onclick="sendemail()">Stay updated!</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <section id="feature-one">
+    <div class="container">
+      <div class="row" style="padding:50px">
+        <div class="col-lg-6">
+          <img src="reverse_ed.png" style="max-width:70%;">
+        </div>
+        <div class="col-lg-6">
+          <h6> A new direction</h6>
+          <h2> Back On Your Beeline..with a helping hand from Nekta!</h2>
+          <p class="lead"> Education isn't just a certificate. It's a lifelong process of personal growth. Whether it's acquiring new skills for a career switch or keeping up-to-date with the latest trends, in a rapidly evolving world it's easy to fall off track.
+        </p>
+          <p class="lead"> Here at Nekta, we're determined to redefine the learning process. We believe you should be in control of how you study.
+        </p>
+        <p class="lead"> Explore our projects and discover talents you never knew you had. Master your mind.
+        </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="feature-two" class="feature-dark">
+        <div class="container">
+          <div class="row" style="padding:2.5%">
+            <div class="col-lg-4">
+              <img src="13.jpg" style="max-width:90%;margin-bottom:15px" class="img-responsive">
+              <h6>Discover projects</h6>
+              <p class="lead">Explore a plethora of predefined project situations across a multitude of enterprise and technical areas.</p>
+            </div>
+            <div class="col-lg-4">
+              <img src="5.jpg" style="max-width:90%;margin-bottom:15px" class="img-responsive">
+              <h6>Learn the process</h6>
+              <p class="lead">Focus on what's important and take the alternative path to defining your future career. Learn to learn.</p>
+            </div>
+            <div class="col-lg-4">
+              <img src="18.jpg" style="max-width:90%;margin-bottom:15px" class="img-responsive">
+              <h6>community support</h6>
+              <p class="lead">With access to a community of enthusiastic learners the relevant answers are at your fingertips.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="feature-three">
+        <div class="container">
+          <div class="row">
+            <div class="feature-content">
+              <div class="col-lg-6">
+                <a class="twitter-timeline" data-width="900" data-height="800" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/nekta_eia">
+                  Follow us on Twitter!
+                </a>
+                <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+              </div>
+              <!--    <div class="feature-content" style="border:1px solid #000"> -->
+              <div class="col-lg-5 col-lg-offset-1">
+                <h6> European Innovation Academy 2016</h6>
+                <h2> A new start with a fresh perspective!</h2>
+                <p class="lead"> Nekta is the brainchild of an international team of students dedicated to revolutionising the education system.
+                </p>
+                <p class="lead">Meet our <a href="about.html">Team</a>!</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </div>
 
-  <footer id="main-footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          &copy; 2016 Nekta company, created July 2016
-          as part of European Innovation Academy program.
-          <br> Website created by <a href="https://fr.linkedin.com/in/valentinberthomier">Valentin BERTHOMIER</a>
-        </div>
-        <div class="col-md-2">
-          <h6>Our product</h6>
-          <ul class="list-unstyled">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="index.html">The app</a></li>
-            <li><a href="index.html">Video</a></li>
-          </ul>
-        </div>
-        <div class="col-md-2">
-          <h6>Social network</h6>
-          <ul class="list-unstyled">
-            <li><a href="https://twitter.com/nekta_eia">Twitter</a></li>
-            <li><a href="https://twitter.com/nekta_eia">Youtube</a></li>
-            <li><a href="https://twitter.com/nekta_eia">Facebook</a></li>
-            <li><a href="https://twitter.com/nekta_eia">Instagram</a></li>
-          </ul>
-        </div>
-        <div class="col-md-2">
-          <h6>Our product</h6>
-          <ul class="list-unstyled">
-            <li><a href="signin.html">Jobs</a></li>
-            <li><a href="signin.html">Subscribe</a></li>
-            <li><a href="signin.html">Sign in</a></li>
-            <li><a href="signin.html">Contact Us</a></li>
-          </ul>
+    </section>
+
+    <section id="feature-four" class="feature-dark">
+      <div class="container">
+        <div class="row">
+          <div class="feature-content">
+            <div class="col-lg-6 feature-caption">
+              <h6>Coming soon</h6>
+              <h2>Subscribe to stay updated!</h2>
+              <p class="lead"> In the next few days we'll be releasing Nekta. To ensure our overall user experience is simple and effective we're asking our community of learners for feedback!
+              </p>
+              <a href="" class="btn btn-lg btn-success">Subscribe!</a>
+
+            </div>
+            <div class="col-lg-6 text-sm-center hidden-lg-down">
+              <img src="phonewall.png" alt="phone.wallpaper" height="600">
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </footer>
+    </section>
 
-  <!-- jQuery first, then Bootstrap JS. -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-</body>
-</html>
+    <footer id="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            &copy; 2016 Nekta company, created July 2016
+            as part of European Innovation Academy program.
+            <br> Website created by <a href="https://fr.linkedin.com/in/valentinberthomier">Valentin BERTHOMIER</a>
+          </div>
+          <div class="col-md-2">
+            <h6>Our product</h6>
+            <ul class="list-unstyled">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="index.html">The app</a></li>
+              <li><a href="index.html">Video</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <h6>Social network</h6>
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/nekta_eia">Twitter</a></li>
+              <li><a href="https://twitter.com/nekta_eia">Youtube</a></li>
+              <li><a href="https://twitter.com/nekta_eia">Facebook</a></li>
+              <li><a href="https://twitter.com/nekta_eia">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <h6>Our product</h6>
+            <ul class="list-unstyled">
+              <li><a href="signin.html">Jobs</a></li>
+              <li><a href="signin.html">Subscribe</a></li>
+              <li><a href="signin.html">Sign up</a></li>
+              <li><a href="signin.html">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+  </body>
+  </html>
