@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link href="startup.css" rel="stylesheet">
+
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCw0_OEmynQsapq_dxhnaUOTg4bg440Fuw",
+    authDomain: "nektafr.firebaseapp.com",
+    databaseURL: "https://nektafr.firebaseio.com/",
+    storageBucket: "nektafr.appspot.com",
+  };
+  firebase.initializeApp(config);
+
+  //  window.location.reload();
+
+  //email regex
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  function sendemail(){
+    var emailin = document.getElementById('emailinput');
+
+    var email = emailin.value;
+
+    if (validateEmail(email)) {
+      var messageListRef = firebase.database().ref().child('emails');
+      var newMessageRef = messageListRef.push();
+      newMessageRef.set({ 'email': email });
+
+      window.alert("Thank you!");
+    } else {
+      window.alert("Please enter valid email");
+    }
+  }
+
+  //user presses enter key event
+  function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+        sendemail();
+        return false;
+    }
+    return true;
+  }
+
+  </script>
+</head>
+<body>
+  <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
+      &#9776;
+    </button>
+    <a class="navbar-brand" href="#"><img src="tet.png" alt="startup.logo" height="35"></a>
+    <div class="collapse navbar-toggleable-xs" id="startupNavbar">
+      <ul class="nav navbar-nav pull-sm-right">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary" href="#">Sign in</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
+  <div id="stage">
+    <div id="stage-caption">
+      <h1 class="display-3">Back On Your Beeline</h1>
+      <p>..with a helping hand from Nekta!</p>
+
+
+      <div class="input-group input-group-lg">
+        <span class="input-group-addon" id="sizing-addon1">@</span>
+        <input type="text" class="form-control" placeholder="email address" aria-describedby="sizing-addon1" id="emailinput" onkeypress="return runScript(event)">
+        <span class="input-group-btn">
+          <button class="btn btn-secondary" type="button" id="signupbutton" onclick="sendemail()">Stay tuned!</button>
+        </span>
+      </div>
+
+
+    </div>
+  </div>
+
+  <section id="feature-one">
+    <div class="container">
+      <div class="row" style="padding:50px">
+          <div class="col-lg-6">
+            <img src="reverse_ed.png">
+          </div>
+          <div class="col-lg-6">
+            <h6> A new direction</h6>
+            <h2> Education in Reverse!</h2>
+            <p class="lead"> Underemployment is a topic too often brushed under the carpet in favour of more flattering statistics. Our mission is to lead the way in redefining the future prospects of graduates. 
+            </p>
+            <p> As the European job market continues to become more competitive we're seeing an increase in graduates settle for roles with little relevance to their education. Many of the students leaving education with high level qualifications are at risk of being left behind by a system that's disempowered, demotivated and disillusioned it's most recent generation.
+            </p>
+            <p class="lead"> Our mission is to lead the way in redefining the future prospects of graduates. It's time to set a new roadmap for success!</p>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section id="feature-two" class="feature-dark">
+    <div class="container">
+      <div class="row" style="padding:2.5%">
+        <div class="col-lg-4">
+            <img src="projects.png" style="max-width:80%;margin-bottom:15px">
+            <h6>Discover projects</h6>
+            <p class="lead">Explore a plethora of predefined project situations across a multitude of enterprise and technical areas.</p>
+        </div>
+        <div class="col-lg-4">
+            <img src="process.png" style="max-width:80%;margin-bottom:15px"> 
+            <h6>Learn the process</h6>
+            <p class="lead">Focus on what's important and take the alternative path to defining your future career. Learn to learn.</p>
+        </div>
+        <div class="col-lg-4">
+            <img src="support.png" style="max-width:80%;margin-bottom:15px">
+            <h6>community support</h6>
+            <p class="lead">With access to a community of enthusiastic learners the relevant answers are at your fingertips.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="feature-three">
+    <div class="container">
+      <div class="row">
+          <div class="col-lg-6 col-lg-offset-1">
+            <h6> A new direction</h6>
+            <h2> Ready to reignite your career?</h2>
+            <p class="lead"> Our transformational learning platform is designed to lead the way in redefining future prospects for graduates in non-graduate occupations. 
+            </p>
+            <p> With the uncertainty in the economy and disruptive advancements in technology the European job market is becoming more competitive than ever. Across the continent we're seeing an increase of underemployment amongst graduates, often leading to roles with little career progression within their chosen disciplines. Many of those with high class degrees in humanities, arts, literature, and education are at risk of being left behind; disempowered, demotivated and losing trust in the system.
+            </p>
+            <p> No longer will intelligent graduates be left behind by an archaic system. We aid in the development of technical skills through practical experience. Move towards your new career path at your own pace. 
+            </p>
+          <div class="feature-content" style="border:1px solid #000">
+            <div class="col-lg-5">
+              <a class="twitter-timeline" data-width="900" data-height="800" data-theme="dark" data-link-color="#FAB81E" href="https://twitter.com/nekta_eia">
+                Follow us on Twitter!
+              </a>
+              <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section id="feature-four" class="feature-dark">
+    <div class="container">
+      <div class="row">
+        <div class="feature-content">
+          <div class="col-lg-6 feature-caption">
+            <h6>Coming soon</h6>
+            <h2>Sign up now for early access!</h2>
+            <p class="lead"> In the next few days we'll be releasing Nekta. To ensure our overall user experience is simple and effective we're asking our community of learners for feedback!
+            </p>
+            <a href="" class="btn btn-lg btn-success">Sign up!</a>
+
+          </div>
+          <div class="col-lg-6 text-sm-center hidden-md-down">
+            <img src="phonewall.png" alt="phone.wallpaper" height="600">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          &copy; Nekta, European Innovation Academy, Nice, 2016.
+        </div>
+        <div class="col-md-2">
+          <h6>Our product</h6>
+          <ul class="list-unstyled">
+            <li><a href="">Home</a></li>
+            <li><a href="">About</a></li>
+            <li><a href="">The app</a></li>
+            <li><a href="">Video</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h6>Social network</h6>
+          <ul class="list-unstyled">
+            <li><a href="">Twitter</a></li>
+            <li><a href="">Youtube</a></li>
+            <li><a href="">Facebook</a></li>
+            <li><a href="">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h6>Our product</h6>
+          <ul class="list-unstyled">
+            <li><a href="">Jobs</a></li>
+            <li><a href="">Sign up</a></li>
+            <li><a href="">Sign in</a></li>
+            <li><a href="">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- jQuery first, then Bootstrap JS. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+</body>
+</html>

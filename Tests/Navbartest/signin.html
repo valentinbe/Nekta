@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link href="about.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80652622-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCE2AAWfF_Zb7w3tEuh1DYs45sdCsP6Qu8",
+    authDomain: "nekta-1c005.firebaseapp.com",
+    databaseURL: "https://nekta-1c005.firebaseio.com",
+    storageBucket: "nekta-1c005.appspot.com",
+  };
+  firebase.initializeApp(config);
+</script>
+  <script src="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/live/0.4/firebase-ui-auth.css" />
+  <script type="text/javascript">
+  // FirebaseUI config.
+  var uiConfig = {
+    // Query parameter name for mode.
+    'queryParameterForWidgetMode': 'mode',
+    // Query parameter name for sign in success url.
+    'queryParameterForSignInSuccessUrl': 'signInSuccessUrl',
+    'signInSuccessUrl': 'index.html',
+    'signInOptions': [
+      // Leave the lines as is for the providers you want to offer your users.
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+      //firebase.auth.TwitterAuthProvider.PROVIDER_ID,
+      //firebase.auth.EmailAuthProvider.PROVIDER_ID
+    ],
+    // Terms of service url.
+    'tosUrl': 'index.html',
+    'callbacks': {
+      'signInSuccess': function(currentUser, credential, redirectUrl) {
+        // Do something.
+        // Return type determines whether we continue the redirect automatically
+        // or whether we leave that to developer to handle.
+        return true;
+      }
+    }
+  };
+
+  var ui = new firebaseui.auth.AuthUI(firebase.auth());
+  // The start method will wait until the DOM is loaded.
+  ui.start('#firebaseui-auth-container', uiConfig);
+
+
+
+
+  function validateEmailwithoutpopup(){
+    var email = document.getElementById('email').value;
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  //email regex
+  function validateEmail() {
+    var email = document.getElementById('email').value;
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!re.test(email)) {
+      window.alert("Please enter valid email");
+    }
+    return re.test(email);
+  }
+
+  function validateName() {
+    var namein = document.getElementById('name').value;
+
+    if(namein.value == "") {
+      window.alert("Error: Please enter a name");
+      namein.focus();
+      return false;
+    }
+    re = /^\w+$/;
+    if(!re.test(namein.value)) {
+      window.alert("Error: Please enter a valid name");
+      namein.focus();
+      return false;
+    }
+    return true;
+  }
+
+  function validatePassword() {
+    var passwordin = document.getElementById('password');
+    var confirmin = document.getElementById('confirm');
+    var usernamein = document.getElementById('username');
+
+    if(passwordin.value != "" && passwordin.value == confirmin.value) {
+      if(passwordin.value.length < 6) {
+        window.alert("Error: Password must contain at least six characters!");
+        passwordin.focus();
+        return false;
+      }
+      if(passwordin.value == usernamein.value) {
+        window.alert("Error: Password must be different from Username!");
+        passwordin.focus();
+        return false;
+      }
+      re = /[0-9]/;
+      if(!re.test(passwordin.value)) {
+        window.alert("Error: password must contain at least one number (0-9)!");
+        passwordin.focus();
+        return false;
+      }
+      re = /[a-z]/;
+      if(!re.test(passwordin.value)) {
+        window.alert("Error: password must contain at least one lowercase letter (a-z)!");
+        passwordin.focus();
+        return false;
+      }
+      re = /[A-Z]/;
+      if(!re.test(passwordin.value)) {
+        window.alert("Error: password must contain at least one uppercase letter (A-Z)!");
+        passwordin.focus();
+        return false;
+      }
+    } else {
+      window.alert("Error: Please check that you've entered and confirmed your password!");
+      passwordin.focus();
+      return false;
+    }
+    return true;
+  }
+
+  function validateUsername() {
+    var usernamein = document.getElementById('username');
+
+    if(usernamein.value == "") {
+      window.alert("Error: Username cannot be blank!");
+      usernamein.focus();
+      return false;
+    }
+    re = /^\w+$/;
+    if(!re.test(usernamein.value)) {
+      window.alert("Error: Username must contain only letters, numbers and underscores!");
+      usernamein.focus();
+      return false;
+    }
+    return true;
+  }
+
+  function validateaccount()
+  {
+    if ((validateEmail()) &&
+    (validateName()) &&
+    (validatePassword()) &&
+    (validateUsername())) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    var namein = document.getElementById('name').value;
+    var emailin = document.getElementById('email').value;
+    var usernamein = document.getElementById('username').value;
+    var passwordin = document.getElementById('password').value;
+    var confirmin = document.getElementById('confirm').value;
+
+    if(validateEmailwithoutpopup()&&emailin==(user.email))
+    {
+      user.sendEmailVerification();
+      // Updates the user attributes:
+      user.updateProfile({
+        displayName: namein,
+        photoURL: "profile.jpg"
+      }).then(function() {
+        // Profile updated successfully!
+        var displayName = user.displayName;
+        var photoURL = user.photoURL;
+      }, function(error) {
+        // An error happened.
+      });
+
+      window.alert("Thank you for registering, a validation email has been sent to " + user.email);
+      document.location.href = "index.html";
+    }
+  });
+
+  function sendreg(){
+    var namein = document.getElementById('name').value;
+    var emailin = document.getElementById('email').value;
+    var usernamein = document.getElementById('username').value;
+    var passwordin = document.getElementById('password').value;
+    var confirmin = document.getElementById('confirm').value;
+
+    if (validateaccount()) {
+      firebase.auth().createUserWithEmailAndPassword(emailin, passwordin).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        window.alert(errorMessage);
+      });
+    }
+  }
+
+  //user presses enter key event
+  function runScript(event) {
+    if (event.which == 13 || event.keyCode == 13) {
+      sendreg();
+      return false;
+    }
+    return true;
+  }
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TQG8SN"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TQG8SN');</script>
+  <!-- End Google Tag Manager -->
+  <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top" style="background-color: #212121;">
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
+      &#9776;
+    </button>
+    <a class="navbar-brand" href="index.html"><img src="tet.png" alt="startup.logo" height="35"></a>
+    <div class="collapse navbar-toggleable-xs" id="startupNavbar">
+      <ul class="nav navbar-nav pull-sm-right">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-primary" href="signin.html">Sign in</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+<div id="stage">
+  <section id="loginpannel" class="feature-login">
+    <div class="container">
+      <div class="row main">
+        <div class="col-lg-6 col-md-offset-3">
+          <div class="panel-heading">
+            <div class="panel-title text-center">
+              <h1 class="title">Nekta</h1>
+              <hr />
+            </div>
+          </div>
+          <div class="main-login main-center">
+            <form class="form-horizontal" method="post" action="#">
+
+              <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">Name</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+
+                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name" onkeypress="return runScript(event)"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="cols-sm-2 control-label">Email</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email" onkeypress="return runScript(event)"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="username" class="cols-sm-2 control-label">Username</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="username" id="username"  placeholder="Enter your Username" onkeypress="return runScript(event)"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="password" class="cols-sm-2 control-label">Password</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    <input type="password" class="form-control" name="password" id="password"  placeholder="Enter your Password" onkeypress="return runScript(event)"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    <input type="password" class="form-control" name="confirm" id="confirm"  placeholder="Confirm your Password" onkeypress="return runScript(event)"/>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group ">
+                <button type="button" class="btn btn-primary btn-lg btn-block login-button" onclick="sendreg()">Register</button>
+              </div>
+
+              <h6 class="description text-sm-center">OR</h6>
+              <div class="row pt-md">
+                <div class="row main">
+
+                  <div id="firebaseui-auth-container"></div>
+                </div></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
+    <footer id="main-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            &copy; 2016 Nekta company, created July 2016
+            as part of European Innovation Academy program.
+            <br> Website created by <a href="https://fr.linkedin.com/in/valentinberthomier">Valentin BERTHOMIER</a>
+          </div>
+          <div class="col-md-2">
+            <h6>Our product</h6>
+            <ul class="list-unstyled">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about.html">About</a></li>
+              <li><a href="index.html">The app</a></li>
+              <li><a href="index.html">Video</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <h6>Social network</h6>
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/nekta_eia">Twitter</a></li>
+              <li><a href="https://twitter.com/nekta_eia">Youtube</a></li>
+              <li><a href="https://twitter.com/nekta_eia">Facebook</a></li>
+              <li><a href="https://twitter.com/nekta_eia">Instagram</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+            <h6>Our product</h6>
+            <ul class="list-unstyled">
+              <li><a href="signin.html">Jobs</a></li>
+              <li><a href="signin.html">Subscribe</a></li>
+              <li><a href="signin.html">Sign in</a></li>
+              <li><a href="signin.html">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- jQuery first, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+  </body>
+  </html>
