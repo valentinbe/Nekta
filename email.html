@@ -83,6 +83,7 @@
           // The signed-in user info.
           var user = result.user;
           // [START_EXCLUDE]
+          //window.alert("token " + token);
           // [END_EXCLUDE]
         }).catch(function(error) {
           // Handle Errors here.
@@ -163,7 +164,7 @@
       if (firebase.auth().currentUser) {
         // [START signout]
         firebase.auth().signOut();
-        window.alert('sign out triggered');
+        //window.alert('sign out triggered');
         // [END signout]
       } else {
         var emailinp = document.getElementById('exampleInputEmail2').value;
@@ -260,7 +261,7 @@
         var refreshToken = user.refreshToken;
         var providerData = user.providerData;
         // [START_EXCLUDE silent]
-        window.alert('Signed in successfully ' + email);
+        //window.alert('Signed in successfully ' + email);
         //document.getElementById('quickstart-sign-in').textContent = 'Sign out';
 
         if (!emailVerified) {
@@ -272,7 +273,7 @@
       } else {
         // User is signed out.
         // [START_EXCLUDE silent]
-        window.alert('Signed out successfully '+ email);
+        //window.alert('Signed out successfully '+ email);
         // [END_EXCLUDE]
       }
       // [START_EXCLUDE silent]
