@@ -14,17 +14,6 @@
 
   <link rel="shortcut icon" href="hip.png" type="image/x-icon"/>
   <link rel="icon" href="hip.png" type="image/x-icon"/>
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-80652622-1', 'auto');
-  ga('send', 'pageview');
-
-  </script>
-
 
   <script src="https://www.gstatic.com/firebasejs/3.2.0/firebase.js"></script>
   <script>
@@ -37,6 +26,17 @@
     };
     firebase.initializeApp(config);
   </script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-80652622-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
   <script>
   //email regex
   function validateEmail(email) {
@@ -68,6 +68,93 @@
     return true;
   }
 
+  function signinGoogle(){
+    if (!firebase.auth().currentUser) {
+        // [START createprovider]
+        var provider = new firebase.auth.GoogleAuthProvider();
+        // [END createprovider]
+        // [START addscopes]
+        provider.addScope('https://www.googleapis.com/auth/plus.login');
+        // [END addscopes]
+        // [START signin]
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // [START_EXCLUDE]
+          //window.alert("token " + token);
+          // [END_EXCLUDE]
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        // [END signin]
+      } else {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      }
+      // [START_EXCLUDE]
+  }
+
+  function signinFacebook(){
+    if (!firebase.auth().currentUser) {
+        // [START createprovider]
+        var provider = new firebase.auth.FacebookAuthProvider();
+        // [END createprovider]
+        // [START addscopes]
+        provider.addScope('user_birthday');
+        // [END addscopes]
+        // [START signin]
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // [START_EXCLUDE]
+          // [END_EXCLUDE]
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        // [END signin]
+      } else {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      }
+      // [START_EXCLUDE]
+      // [END_EXCLUDE]
+  }
 
 
   function signinemail(){
@@ -77,23 +164,23 @@
       if (firebase.auth().currentUser) {
         // [START signout]
         firebase.auth().signOut();
-        window.alert('sign out triggered');
+        //window.alert('sign out triggered');
         // [END signout]
       } else {
-        var email = document.getElementById('exampleInputEmail2').value;
-        var password = document.getElementById('exampleInputPassword2').value;
-        if (email.length < 4) {
+        var emailinp = document.getElementById('exampleInputEmail2').value;
+        var passwordinp = document.getElementById('exampleInputPassword2').value;
+        if (emailinp.length < 4) {
           window.alert('Please enter an email address.');
           return;
         }
-        if (password.length < 4) {
+        if (passwordinp.length < 4) {
           window.alert('Please enter a password.');
           return;
         }
         // Sign in with email and pass.
         // [START authwithemail]
-        window.alert('sign in triggered');
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+
+        firebase.auth().signInWithEmailAndPassword(emailinp, passwordinp).catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -125,9 +212,9 @@
     }
 
     function sendPasswordReset() {
-      var email = document.getElementById('exampleInputEmail2').value;
+      var emaili = document.getElementById('exampleInputEmail2').value;
       // [START sendpasswordemail]
-      firebase.auth().sendPasswordResetEmail(email).then(function() {
+      firebase.auth().sendPasswordResetEmail(emaili).then(function() {
         // Password Reset Email Sent!
         // [START_EXCLUDE]
         window.alert('Password Reset Email Sent!');
@@ -174,7 +261,7 @@
         var refreshToken = user.refreshToken;
         var providerData = user.providerData;
         // [START_EXCLUDE silent]
-        window.alert('Signed in successfully ' + email);
+        //window.alert('Signed in successfully ' + email);
         //document.getElementById('quickstart-sign-in').textContent = 'Sign out';
 
         if (!emailVerified) {
@@ -186,7 +273,7 @@
       } else {
         // User is signed out.
         // [START_EXCLUDE silent]
-        window.alert('Signed out successfully '+ email);
+        //window.alert('Signed out successfully '+ email);
         // [END_EXCLUDE]
       }
       // [START_EXCLUDE silent]
@@ -227,7 +314,6 @@
             <li>
               <div class="row">
                 <div class="col-md-12">
-                  <form class="form" role="form" method="post" accept-charset="UTF-8" id="login-nav">
                     <div class="form-group">
                       <label class="sr-only" for="exampleInputEmail2">Email address</label>
                       <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
@@ -244,14 +330,13 @@
                     <div class="form-group">
                       <button type="submit" class="btn btn-success btn-block" id="loginButton">Login</button>
                     </div>
-                  </form>
                 </div>
               </div>
             </li>
             <li class="divider"></li>
             <li>
-              <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google" onclick="signingoogle()">
-              <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter" onclick="signinfacebook()">
+              <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google" onclick="signinGoogle()">
+              <input class="btn btn-primary btn-block" type="button" id="sign-in-facebook" value="Sign In with Facebook" onclick="signinFacebook()">
             </li>
           </div>
         </div>
@@ -261,7 +346,6 @@
       </ul>
     </div>
   </nav>
-
 
   <div id="stage">
     <div id="stage-caption">
