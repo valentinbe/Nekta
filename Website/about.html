@@ -23,6 +23,231 @@
   ga('send', 'pageview');
 
   </script>
+
+  <script>
+  function signinGoogle(){
+    if (!firebase.auth().currentUser) {
+        // [START createprovider]
+        var provider = new firebase.auth.GoogleAuthProvider();
+        // [END createprovider]
+        // [START addscopes]
+        provider.addScope('https://www.googleapis.com/auth/plus.login');
+        // [END addscopes]
+        // [START signin]
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // [START_EXCLUDE]
+          //window.alert("token " + token);
+          // [END_EXCLUDE]
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        // [END signin]
+      } else {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      }
+      // [START_EXCLUDE]
+  }
+
+  function signinFacebook(){
+    if (!firebase.auth().currentUser) {
+        // [START createprovider]
+        var provider = new firebase.auth.FacebookAuthProvider();
+        // [END createprovider]
+        // [START addscopes]
+        provider.addScope('user_birthday');
+        // [END addscopes]
+        // [START signin]
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // [START_EXCLUDE]
+          // [END_EXCLUDE]
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        // [END signin]
+      } else {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      }
+      // [START_EXCLUDE]
+      // [END_EXCLUDE]
+  }
+
+
+  function signinemail(){
+    /**
+     * Handles the sign in button press.
+     */
+      if (firebase.auth().currentUser) {
+        // [START signout]
+        firebase.auth().signOut();
+        //window.alert('sign out triggered');
+        // [END signout]
+      } else {
+        var emailinp = document.getElementById('exampleInputEmail2').value;
+        var passwordinp = document.getElementById('exampleInputPassword2').value;
+        if (emailinp.length < 4) {
+          window.alert('Please enter an email address.');
+          return;
+        }
+        if (passwordinp.length < 4) {
+          window.alert('Please enter a password.');
+          return;
+        }
+        // Sign in with email and pass.
+        // [START authwithemail]
+
+        firebase.auth().signInWithEmailAndPassword(emailinp, passwordinp).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/wrong-password') {
+            window.alert('Wrong password.');
+          } else {
+            window.alert(errorMessage);
+          }
+          console.log(error);
+          // [END_EXCLUDE]
+        });
+        // [END authwithemail]
+      }
+  }
+
+  /**
+     * Sends an email verification to the user.
+     */
+    function sendEmailVerification() {
+      // [START sendemailverification]
+      firebase.auth().currentUser.sendEmailVerification().then(function() {
+        // Email Verification sent!
+        // [START_EXCLUDE]
+        alert('Email Verification Sent!');
+        // [END_EXCLUDE]
+      });
+      // [END sendemailverification]
+    }
+
+    function sendPasswordReset() {
+      var emaili = document.getElementById('exampleInputEmail2').value;
+      // [START sendpasswordemail]
+      firebase.auth().sendPasswordResetEmail(emaili).then(function() {
+        // Password Reset Email Sent!
+        // [START_EXCLUDE]
+        window.alert('Password Reset Email Sent!');
+        // [END_EXCLUDE]
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/invalid-email') {
+          alert(errorMessage);
+        } else if (errorCode == 'auth/user-not-found') {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+      // [END sendpasswordemail];
+    }
+
+    /**
+   * Handles registering callbacks for the auth status.
+   *
+   * This method registers a listener with firebase.auth().onAuthStateChanged. This listener is called when
+   * the user is signed in or out, and that is where we update the UI.
+   *
+   * When signed in, we also authenticate to the Firebase Realtime Database.
+   */
+  function initApp() {
+    // Listening for auth state changes.
+    // [START authstatelistener]
+    firebase.auth().onAuthStateChanged(function(user) {
+      // [START_EXCLUDE silent]
+      //document.getElementById('quickstart-verify-email').disabled = true;
+      // [END_EXCLUDE]
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var refreshToken = user.refreshToken;
+        var providerData = user.providerData;
+        // [START_EXCLUDE silent]
+        //window.alert('Signed in successfully ' + email);
+        //document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+
+        if (!emailVerified) {
+          window.alert('Email not verified yet, please verify your email');
+        }
+
+        window.location="dashboard.html";
+        // [END_EXCLUDE]
+      } else {
+        // User is signed out.
+        // [START_EXCLUDE silent]
+        //window.alert('Signed out successfully '+ email);
+        // [END_EXCLUDE]
+      }
+      // [START_EXCLUDE silent]
+      //document.getElementById('quickstart-sign-in').disabled = false;
+      // [END_EXCLUDE]
+    });
+    // [END authstatelistener]
+    document.getElementById('loginButton').addEventListener('click', signinemail, false);
+    //document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
+    //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
+    //document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+  }
+
+  window.onload = function() {
+    initApp();
+  };
+  </script>
 </head>
 <body>
   <!-- Google Tag Manager -->
@@ -48,14 +273,13 @@
           <a class="nav-link" href="about.html">About us</a>
         </li>
         <div class="nav-item">
-          <button class="btn btn-primary-outline dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="btn btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Login
           </button>
           <div  class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2" style="padding: 15px;min-width: 250px;">
             <li>
               <div class="row">
                 <div class="col-md-12">
-                  <form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
                     <div class="form-group">
                       <label class="sr-only" for="exampleInputEmail2">Email address</label>
                       <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
@@ -70,21 +294,20 @@
                       </label>
                     </div>
                     <div class="form-group">
-                      <button type="submit" class="btn btn-success btn-block">Sign up</button>
+                      <button type="submit" class="btn btn-success btn-block" id="loginButton">Login</button>
                     </div>
-                  </form>
                 </div>
               </div>
             </li>
             <li class="divider"></li>
             <li>
-              <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">
-              <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">
+              <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google" onclick="signinGoogle()">
+              <input class="btn btn-primary btn-block" type="button" id="sign-in-facebook" value="Sign In with Facebook" onclick="signinFacebook()">
             </li>
           </div>
         </div>
         <li class="nav-item">
-          <a class="btn btn-primary" href="signin.html">Sign up</a>
+          <a class="btn btn btn-secondary-outline" href="signin.html">Sign up</a>
         </li>
       </ul>
     </div>
@@ -147,7 +370,7 @@
                     </ul>
                   </div>
                   <h1>Valentin</h1>
-                  <h2>Full stack developper/Designer</h2>
+                  <h2>Full stack developer/Designer</h2>
                   <p>Final year embedded systems engineering school student from France.</p>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
