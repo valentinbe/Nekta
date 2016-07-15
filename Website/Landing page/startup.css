@@ -1,8 +1,10 @@
+@import 'https://fonts.googleapis.com/css?family=Raleway';
 html,
 body{
   height: 100%;
 }
 body{
+      font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   color: #6c6f73;
@@ -84,6 +86,11 @@ img{
   color: white;
 }
 
+#logindrop{
+  padding-top: = 6rem 0;
+}
+
+
  #main-footer{
    background: #212121;
    color: white;
@@ -100,9 +107,15 @@ img{
  }
 
 /* media query */
-@media scream and ( min-width : 991px){
+@media screen and ( min-width : 991px){
   .feature-content{
     display: flex;
     align-items: center;
+  }
+}
+
+@media screen and ( max-width : 600px){
+  #stage-caption h1{
+    font-size: 12vw;
   }
 }

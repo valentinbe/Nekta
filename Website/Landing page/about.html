@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Required meta tags always come first -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Nekta - Team</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+  <!-- Custom CSS -->
+  <link href="about.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-80652622-1', 'auto');
+  ga('send', 'pageview');
+
+  </script>
+
+  <script>
+  function signinGoogle(){
+    if (!firebase.auth().currentUser) {
+        // [START createprovider]
+        var provider = new firebase.auth.GoogleAuthProvider();
+        // [END createprovider]
+        // [START addscopes]
+        provider.addScope('https://www.googleapis.com/auth/plus.login');
+        // [END addscopes]
+        // [START signin]
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // [START_EXCLUDE]
+          //window.alert("token " + token);
+          // [END_EXCLUDE]
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        // [END signin]
+      } else {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      }
+      // [START_EXCLUDE]
+  }
+
+  function signinFacebook(){
+    if (!firebase.auth().currentUser) {
+        // [START createprovider]
+        var provider = new firebase.auth.FacebookAuthProvider();
+        // [END createprovider]
+        // [START addscopes]
+        provider.addScope('user_birthday');
+        // [END addscopes]
+        // [START signin]
+        firebase.auth().signInWithPopup(provider).then(function(result) {
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          var token = result.credential.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          // [START_EXCLUDE]
+          // [END_EXCLUDE]
+        }).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/account-exists-with-different-credential') {
+            alert('You have already signed up with a different auth provider for that email.');
+            // If you are using multiple auth providers on your app you should handle linking
+            // the user's accounts here.
+          } else {
+            console.error(error);
+          }
+          // [END_EXCLUDE]
+        });
+        // [END signin]
+      } else {
+        // [START signout]
+        firebase.auth().signOut();
+        // [END signout]
+      }
+      // [START_EXCLUDE]
+      // [END_EXCLUDE]
+  }
+
+
+  function signinemail(){
+    /**
+     * Handles the sign in button press.
+     */
+      if (firebase.auth().currentUser) {
+        // [START signout]
+        firebase.auth().signOut();
+        //window.alert('sign out triggered');
+        // [END signout]
+      } else {
+        var emailinp = document.getElementById('exampleInputEmail2').value;
+        var passwordinp = document.getElementById('exampleInputPassword2').value;
+        if (emailinp.length < 4) {
+          window.alert('Please enter an email address.');
+          return;
+        }
+        if (passwordinp.length < 4) {
+          window.alert('Please enter a password.');
+          return;
+        }
+        // Sign in with email and pass.
+        // [START authwithemail]
+
+        firebase.auth().signInWithEmailAndPassword(emailinp, passwordinp).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // [START_EXCLUDE]
+          if (errorCode === 'auth/wrong-password') {
+            window.alert('Wrong password.');
+          } else {
+            window.alert(errorMessage);
+          }
+          console.log(error);
+          // [END_EXCLUDE]
+        });
+        // [END authwithemail]
+      }
+  }
+
+  /**
+     * Sends an email verification to the user.
+     */
+    function sendEmailVerification() {
+      // [START sendemailverification]
+      firebase.auth().currentUser.sendEmailVerification().then(function() {
+        // Email Verification sent!
+        // [START_EXCLUDE]
+        alert('Email Verification Sent!');
+        // [END_EXCLUDE]
+      });
+      // [END sendemailverification]
+    }
+
+    function sendPasswordReset() {
+      var emaili = document.getElementById('exampleInputEmail2').value;
+      // [START sendpasswordemail]
+      firebase.auth().sendPasswordResetEmail(emaili).then(function() {
+        // Password Reset Email Sent!
+        // [START_EXCLUDE]
+        window.alert('Password Reset Email Sent!');
+        // [END_EXCLUDE]
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // [START_EXCLUDE]
+        if (errorCode == 'auth/invalid-email') {
+          alert(errorMessage);
+        } else if (errorCode == 'auth/user-not-found') {
+          alert(errorMessage);
+        }
+        console.log(error);
+        // [END_EXCLUDE]
+      });
+      // [END sendpasswordemail];
+    }
+
+    /**
+   * Handles registering callbacks for the auth status.
+   *
+   * This method registers a listener with firebase.auth().onAuthStateChanged. This listener is called when
+   * the user is signed in or out, and that is where we update the UI.
+   *
+   * When signed in, we also authenticate to the Firebase Realtime Database.
+   */
+  function initApp() {
+    // Listening for auth state changes.
+    // [START authstatelistener]
+    firebase.auth().onAuthStateChanged(function(user) {
+      // [START_EXCLUDE silent]
+      //document.getElementById('quickstart-verify-email').disabled = true;
+      // [END_EXCLUDE]
+      if (user) {
+        // User is signed in.
+        var displayName = user.displayName;
+        var email = user.email;
+        var emailVerified = user.emailVerified;
+        var photoURL = user.photoURL;
+        var isAnonymous = user.isAnonymous;
+        var uid = user.uid;
+        var refreshToken = user.refreshToken;
+        var providerData = user.providerData;
+        // [START_EXCLUDE silent]
+        //window.alert('Signed in successfully ' + email);
+        //document.getElementById('quickstart-sign-in').textContent = 'Sign out';
+
+        if (!emailVerified) {
+          window.alert('Email not verified yet, please verify your email');
+        }
+
+        window.location="dashboard.html";
+        // [END_EXCLUDE]
+      } else {
+        // User is signed out.
+        // [START_EXCLUDE silent]
+        //window.alert('Signed out successfully '+ email);
+        // [END_EXCLUDE]
+      }
+      // [START_EXCLUDE silent]
+      //document.getElementById('quickstart-sign-in').disabled = false;
+      // [END_EXCLUDE]
+    });
+    // [END authstatelistener]
+    document.getElementById('loginButton').addEventListener('click', signinemail, false);
+    //document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
+    //document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
+    //document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
+  }
+
+  window.onload = function() {
+    initApp();
+  };
+  </script>
+</head>
+<body>
+  <!-- Google Tag Manager -->
+  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TQG8SN"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-TQG8SN');</script>
+  <!-- End Google Tag Manager -->
+  <nav id="navbar" class="navbar navbar-light bg-faded navbar-fixed-top" style="background-color: #212121;">
+    <button style="float:right"; class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#startupNavbar">
+      &#9776;
+    </button>
+    <a class="navbar-brand" href="index.html"><img src="tet.png" alt="startup.logo" height="35"></a>
+    <div class="collapse navbar-toggleable-xs" id="startupNavbar">
+      <ul class="nav navbar-nav pull-sm-right">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="about.html">About us</a>
+        </li>
+        <div class="nav-item">
+          <button class="btn btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Login
+          </button>
+          <div  class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu2" style="padding: 15px;min-width: 250px;">
+            <li>
+              <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                      <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+                    </div>
+                    <div class="form-group">
+                      <label class="sr-only" for="exampleInputPassword2">Password</label>
+                      <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                    </div>
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox"> Remember me
+                      </label>
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" class="btn btn-success btn-block" id="loginButton">Login</button>
+                    </div>
+                </div>
+              </div>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google" onclick="signinGoogle()">
+              <input class="btn btn-primary btn-block" type="button" id="sign-in-facebook" value="Sign In with Facebook" onclick="signinFacebook()">
+            </li>
+          </div>
+        </div>
+        <li class="nav-item">
+          <a class="btn btn btn-secondary-outline" href="signin.html">Sign up</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div id="stage">
+    <section class="team">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-10 col-md-offset-1">
+            <div class="col-lg-12">
+              <h6 class="description">OUR TEAM</h6>
+              <div class="row pt-md">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
+                  <div class="img-box" class="img-fluid">
+                    <img src="profile_daria.png" class="img-fluid" height="200">
+                    <ul class="text-center">
+                      <a href="https://www.facebook.com/daria.kuznetsova.39?fref=ts"><li><i class="fa fa-facebook"></i></li></a>
+                      <a href="#"><li><i class="fa fa-twitter"></i></li></a>
+                      <a href="https://no.linkedin.com/in/daria-kuznetsova-44a6415a"><li><i class="fa fa-linkedin"></i></li></a>
+                    </ul>
+                  </div>
+                  <h1>Daria</h1>
+                  <h2>Marketing</h2>
+                  <p>Our amazing strategic marketing management major from Russia. She loves our CEO's sunglasses..</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
+                  <div class="img-box" class="img-fluid">
+                    <img src="profile_jae.png" class="img-fluid" height="200">
+                    <ul class="text-center">
+                      <a href="https://www.facebook.com/jwon2"><li><i class="fa fa-facebook"></i></li></a>
+                      <a href="#"><li><i class="fa fa-twitter"></i></li></a>
+                      <a href="https://www.linkedin.com/in/jaewon-lee-b8ab7bbb"><li><i class="fa fa-linkedin"></i></li></a>
+                    </ul>
+                  </div>
+                  <h1>Jae</h1>
+                  <h2>Full stack developer</h2>
+                  <p>Part time professional Pokemon master, part time Bootstrap Ninja. He is also a third year Computer Science student from America. </p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
+                  <div class="img-box" class="img-fluid">
+                    <img src="profile_jon.png" class="img-fluid" height="200">
+                    <ul class="text-center">
+                      <a href="https://www.facebook.com/jonatanPaz?fref=ts"><li><i class="fa fa-facebook"></i></li></a>
+                      <a href="#"><li><i class="fa fa-twitter"></i></li></a>
+                      <a href="https://no.linkedin.com/in/jonatannordangpaz"><li><i class="fa fa-linkedin"></i></li></a>
+                    </ul>
+                  </div>
+                  <h1>Jonatan</h1>
+                  <h2>Business</h2>
+                  <p>#1 contender for the world's biggest coffee drinker. Also fourth year business student from Norway.</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
+                  <div class="img-box" class="img-fluid">
+                    <img src="profile.jpg" class="img-fluid" height="200">
+                    <ul class="text-center">
+                      <a href="https://www.facebook.com/valentin.berthomier"><li><i class="fa fa-facebook"></i></li></a>
+                      <a href="https://twitter.com/val_shg"><li><i class="fa fa-twitter"></i></li></a>
+                      <a href="https://fr.linkedin.com/in/valentinberthomier"><li><i class="fa fa-linkedin"></i></li></a>
+                    </ul>
+                  </div>
+                  <h1>Valentin</h1>
+                  <h2>Full stack developer/Designer</h2>
+                  <p>Final year embedded systems engineering school student from France.</p>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 profile">
+                  <div class="img-box" class="img-fluid">
+                    <img src="profile_kyle.png" class="img-fluid" height="200">
+                    <ul class="text-center">
+                      <a href="https://www.facebook.com/profile.php?id=100012872553198"><li><i class="fa fa-facebook"></i></li></a>
+                      <a href="https://twitter.com/KyCWesley"><li><i class="fa fa-twitter"></i></li></a>
+                      <a href="#"><li><i class="fa fa-linkedin"></i></li></a>
+                    </ul>
+                  </div>
+                  <h1>Kyle</h1>
+                  <h2>Operation</h2>
+                  <p>Nobody know his real identity, he walks bare foot and eats tofu. Some people say he is a final year student in entreprise development from England.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <footer id="main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          &copy; 2016 Nekta company, created July 2016
+          as part of European Innovation Academy program.
+          <br> Website created by <a href="https://fr.linkedin.com/in/valentinberthomier">Valentin BERTHOMIER</a>
+        </div>
+        <div class="col-md-2">
+          <h6>Our product</h6>
+          <ul class="list-unstyled">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html">The app</a></li>
+            <li><a href="index.html">Video</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h6>Social network</h6>
+          <ul class="list-unstyled">
+            <li><a href="https://twitter.com/nekta_eia">Twitter</a></li>
+            <li><a href="https://twitter.com/nekta_eia">Youtube</a></li>
+            <li><a href="https://twitter.com/nekta_eia">Facebook</a></li>
+            <li><a href="https://twitter.com/nekta_eia">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <h6>Our product</h6>
+          <ul class="list-unstyled">
+            <li><a href="signin.html">Jobs</a></li>
+            <li><a href="signin.html">Subscribe</a></li>
+            <li><a href="signin.html">Sign in</a></li>
+            <li><a href="signin.html">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- jQuery first, then Bootstrap JS. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+</body>
+</html>
